@@ -20,3 +20,11 @@
     Hash the password
     Check that the username / email aren't taken
     Return ok:true or ok:false, error:$error if there is an error.
+
+3 : (05-27) From #4.3 to #4.19
+    Now it's time to create the following resolvers:
+    editProfile: Change the user's profile, this includes changing password and changing the avatarURL.
+    login: Log the user in by returning a JWT or return an error in case the password is wrong.
+    seeProfile: See any users profile.
+    
+    You will also have to write some code to protect your resolvers and inject the logged in user to the resolver's context.

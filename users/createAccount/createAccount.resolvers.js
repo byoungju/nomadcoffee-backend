@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import client from "../client";
+import client from "../../client";
 
 export default {
   Mutation: {
@@ -38,6 +38,11 @@ export default {
         return {
           ok: true,
           error: null
+        };
+      } else {
+        return {
+          ok: false,
+          error: "Could not create account",
         };
       }
     },
