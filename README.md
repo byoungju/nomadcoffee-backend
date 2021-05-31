@@ -28,3 +28,10 @@
     seeProfile: See any users profile.
     
     You will also have to write some code to protect your resolvers and inject the logged in user to the resolver's context.
+
+4 : (05-31) From #4.20 to #4.29
+    Implement Follow / Unfollow functionality.
+    Implement followers & following computed fields with pagination on the seeUser resolver (No extra resolvers).
+    Implement searchUsers resolver.
+
+    

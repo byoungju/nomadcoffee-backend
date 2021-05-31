@@ -24,5 +24,5 @@ app.use("/static", express.static("uploads"));
 
 const PORT = process.env.PORT;
 app.listen({ port: PORT }, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
+  console.log(`Server is running on http://localhost:${PORT}/graphql`)
 });
