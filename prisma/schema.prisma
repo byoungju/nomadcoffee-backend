@@ -11,14 +11,40 @@ generator client {
 }
 
 model User {
-  id             Int     @id @default(autoincrement())
-  username       String  @unique
-  email          String  @unique
+  id             Int          @id @default(autoincrement())
+  username       String       @unique
+  email          String       @unique
   name           String?
   location       String?
   password       String
   avatarURL      String?
   githubUsername String?
-  followers      User[]  @relation("FollowRelation", references: [id])
-  following      User[]  @relation("FollowRelation", references: [id])
+  followers      User[]       @relation("FollowRelation", references: [id])
+  following      User[]       @relation("FollowRelation", references: [id])
+  CoffeeShop     CoffeeShop[]
+}
+
+model CoffeeShopPhoto {
+  id           Int        @id @default(autoincrement())
+  url          String     @unique
+  shop         CoffeeShop @relation(fields: [coffeeShopId], references: [id])
+  coffeeShopId Int
+}
+
+model CoffeeShop {
+  id         Int               @id @default(autoincrement())
+  name       String
+  latitude   String?
+  longitude  String?
+  user       User              @relation(fields: [userId], references: [id])
+  photos     CoffeeShopPhoto[]
+  categories Category[]
+  userId     Int
+}
+
+model Category {
+  id    Int          @id @default(autoincrement())
+  name  String       @unique
+  slug  String
+  shops CoffeeShop[]
 }
