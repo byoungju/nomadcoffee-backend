@@ -10,10 +10,6 @@
     "build": "babel src --out-dir build",
     "start": "node build/server"
   },
-  "engines": {
-    "node": "12.22.1",
-    "npm": "6.14.12"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/byoungju/nomadcoffee-backend.git"
