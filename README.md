@@ -51,3 +51,12 @@
     seeCategory should list all the CoffeeShop inside of a Category with pagination.
     seeCategories should list all the Category and should have a totalShops computed field that counts all the CoffeeShop inside of the Category, it should also have pagination
     editCoffeeShop should edit a CoffeeShop
+
+6 : (06-03) From #19.0 to #19.7
+
+    Today's solution is from taeyoungs! The functions in src/coffeeShop/coffeeShop.utiles.ts are great!
+
+    Tasks
+    We are finished with the backend! Following the lectures of the section #19 deploy your backend to Heroku. You will also have to configure a PostgreSQL Database.
+
+    Make sure you select only the free versions of Database and Servers

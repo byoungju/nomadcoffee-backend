@@ -19,16 +19,11 @@ model User {
   password       String
   avatarURL      String?
   githubUsername String?
-  followers      User[]       @relation("FollowRelation", references: [id])
   following      User[]       @relation("FollowRelation", references: [id])
-  CoffeeShop     CoffeeShop[]
-}
-
-model CoffeeShopPhoto {
-  id           Int        @id @default(autoincrement())
-  url          String     @unique
-  shop         CoffeeShop @relation(fields: [coffeeShopId], references: [id])
-  coffeeShopId Int
+  followers      User[]       @relation("FollowRelation", references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  shops          CoffeeShop[]
 }
 
 model CoffeeShop {
@@ -37,14 +32,27 @@ model CoffeeShop {
   latitude   String?
   longitude  String?
   user       User              @relation(fields: [userId], references: [id])
-  photos     CoffeeShopPhoto[]
-  categories Category[]
   userId     Int
+  categories Category[]
+  photos     CoffeeShopPhoto[]
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
 }
 
 model Category {
-  id    Int          @id @default(autoincrement())
-  name  String       @unique
-  slug  String
-  shops CoffeeShop[]
+  id        Int          @id @default(autoincrement())
+  name      String       @unique
+  slug      String
+  shops     CoffeeShop[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model CoffeeShopPhoto {
+  id           Int        @id @default(autoincrement())
+  url          String
+  shop         CoffeeShop @relation(fields: [coffeeShopId], references: [id])
+  coffeeShopId Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
