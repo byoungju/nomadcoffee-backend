@@ -13,27 +13,48 @@ export default {
         const oldCoffeeShop = await client.coffeeShop.findFirst({
           where: {
             id,
-            userId: loggedInUser.id,
           },
           include: {
-            categories: { select: { name: true } },
-            photo: { select: { id: true } },
+            categories: {
+              select: {
+                id: true,
+              },
+            },
           },
         });
+
         if (!oldCoffeeShop) {
           return {
             ok: false,
             error: "CoffeeShop not found.",
           };
         }
-
         try {
+          let photoUrl = null
+          if (photo) {
+            photoUrl = await filesHandler(photo, loggedInUser.id);
+            await client.coffeeShopPhoto.deleteMany({
+              where: {
+                shop: {
+                  id,
+                },
+              },
+            });
+          }
+
           await client.coffeeShop.update({
             where: { id },
             data: {
               name,
               latitude,
               longitude,
+              ...(photoUrl && {
+                photos: {
+                  create: {
+                    url: photoUrl,
+                  },
+                },
+              }),
               ...(categories && {
                 categories: {
                   disconnect: oldCoffeeShop.categories,
@@ -43,19 +64,6 @@ export default {
             },
           });
 
-          if (photo) {
-            const photoUrl = await filesHandler(photo, loggedInUser.id);
-            await client.coffeeShopPhoto.create({
-              data: {
-                url: photoUrl,
-                shop: {
-                  connect: {
-                    id,
-                  },
-                },
-              },
-            });
-          }
           return {
             ok: true,
             error: null

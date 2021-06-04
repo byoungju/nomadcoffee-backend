@@ -5,8 +5,12 @@ export default {
   Mutation: {
     createCoffeeShop: protectedResolver(
       async (_, { name, latitude, longitude, photo, categories }, { loggedInUser }) => {
+        let photoUrl = null
+        if (photo) {
+          photoUrl = await filesHandler(photo, loggedInUser.id);
+        }
         try {
-          const coffeeShop = await client.coffeeShop.create({
+          await client.coffeeShop.create({
             data: {
               name,
               latitude,
@@ -19,25 +23,15 @@ export default {
               categories: {
                 connectOrCreate: processCategory(categories),
               },
-            },
-          });
-
-          console.log(photo)
-          console.log(loggedInUser)
-
-          if (photo) {
-            const photoUrl = await filesHandler(photo, loggedInUser.id);
-            await client.coffeeShopPhoto.create({
-              data: {
-                url: photoUrl,
-                shop: {
-                  connect: {
-                    id: coffeeShop.id,
+              ...(photoUrl && {
+                photos: {
+                  create: {
+                    url: photoUrl,
                   },
                 },
-              },
-            });
-          }
+              }),
+            },
+          });
 
           return {
             ok: true,
