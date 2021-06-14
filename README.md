@@ -1,5 +1,7 @@
 # nomadcoffee-backend
 인스타클론 6주 챌린지
+backend > https://nomadcoffee-backend-byoungju.herokuapp.com/graphql
+frontend > https://nomadcoffee-frontend-byoungju.netlify.app
 
 1 : BACKEND SETUP (Prisma) From #3.0 to #3.12
 
@@ -61,6 +63,3 @@
 
     Make sure you select only the free versions of Database and Servers
 
-
-done
-https://nomadcoffee-backend-byoungju.herokuapp.com/graphql
